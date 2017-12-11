@@ -1,0 +1,23 @@
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": true,
+        "node": true,
+        "jest": true
+    },
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "sourceType": "module"
+    },
+    "plugins": [
+        "jest"
+    ],
+    "extends": ["eslint:recommended", "plugin:jest/recommended"],
+    "rules": {
+        "quotes": ["error", "single"],
+        "semi": ["error", "never"]
+    }
+}

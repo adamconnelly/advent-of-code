@@ -1,0 +1,16 @@
+{
+  "name": "ac-aoc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watch --notify"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^4.13.0",
+    "eslint-plugin-jest": "^21.4.2",
+    "jest": "^21.2.1"
+  }
+}
