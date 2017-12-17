@@ -1,21 +1,31 @@
-const toCoordinate = require('./memoryMapper')
+const { spiralGenerator, toCoordinate } = require('./spiral')
 const toManhattan = require('./manhattanDistance')
 
-describe('memoryMapper', () => {
-    // Here's an example of how the spiral memory looks from the puzzle:
 
-    // 17  16  15  14  13
-    // 18   5   4   3  12
-    // 19   6   1   2  11
-    // 20   7   8   9  10
-    // 21  22  23---> ...
+// Here's an example of how the spiral memory looks from the puzzle:
 
-    it('converts 1 to 0,0', () => {
-        expect(toCoordinate(1)).toEqual({ x: 0, y: 0 })
+// 17  16  15  14  13
+// 18   5   4   3  12
+// 19   6   1   2  11
+// 20   7   8   9  10
+// 21  22  23---> ...
+
+describe('spiralGenerator', () => {
+    it('returns 0,0 for first execution', () => {
+        let spiral = spiralGenerator()
+        expect(spiral.next().value).toEqual({ x: 0, y: 0 })
     })
 
-    it('converts 2 to 0,1', () => {
-        expect(toCoordinate(2)).toEqual({ x: 1, y: 0 })
+    it('returns 0,1 for second iteration', () => {
+        let spiral = spiralGenerator()
+        spiral.next()
+        expect(spiral.next().value).toEqual({ x: 1, y: 0 })
+    })
+})
+
+describe('toCoordinate', () => {
+    it('converts 1 to 0,0', () => {
+        expect(toCoordinate(1)).toEqual({ x: 0, y: 0 })
     })
 
     it('converts 3 to 1,1', () => {
@@ -51,6 +61,6 @@ describe('distanceCalculator', () => {
 
 describe('puzzle', () => {
     it('can be solved', () => {
-        expect(toManhattan(toCoordinate(325489))).toEqual(5)
+        expect(toManhattan(toCoordinate(325489))).toEqual(552)
     })
 })

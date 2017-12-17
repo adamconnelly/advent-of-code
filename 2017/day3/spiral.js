@@ -6,25 +6,22 @@ const directions = {
 }
 
 /**
- * Converts a memory square to a coordinate.
- * 
- * @param {Number} square the square of memory
+ * Returns an interator that can be used to calculate the coordinates
+ * in the spiral pattern used for the challenge.
  */
-module.exports = (square) => {
+module.exports.spiralGenerator = function *spiralGenerator() {
     let currentDirection = directions.right
     let currentCoordinate = { x: 0, y: 0 }
-    let currentSquare = 1
     let stepsToTake = 1
     let incrementSteps = false
 
-    while (currentSquare < square) {
+    yield currentCoordinate
+
+    while (true) {
         for(let i = 0; i < stepsToTake; i++) {
             takeStep(currentCoordinate, currentDirection)
-            currentSquare++
 
-            if (currentSquare === square) {
-                return currentCoordinate
-            }
+            yield currentCoordinate
         }
 
         currentDirection = calculateNextDirection(currentDirection)
@@ -32,8 +29,23 @@ module.exports = (square) => {
 
         incrementSteps = !incrementSteps
     }
-    
-    return currentCoordinate
+}
+
+/**
+ * Converts a memory square to a coordinate.
+ * 
+ * @param {Number} square the square of memory
+ */
+module.exports.toCoordinate = (square) => {
+    let currentSquare = 1
+
+    for (let coordinate of module.exports.spiralGenerator()) {
+        if (currentSquare === square) {
+            return coordinate
+        }
+
+        currentSquare++
+    }
 }
 
 function takeStep(currentCoordinate, currentDirection) {
