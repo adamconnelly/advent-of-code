@@ -18,6 +18,12 @@
     "extends": ["eslint:recommended", "plugin:jest/recommended"],
     "rules": {
         "quotes": ["error", "single"],
-        "semi": ["error", "never"]
+        "semi": ["error", "never"],
+        "object-curly-spacing": ["error", "always"],
+        "key-spacing": ["error"],
+        "comma-spacing": ["error"],
+        "semi-spacing": ["error"],
+        "space-infix-ops": ["error"],
+        "indent": ["error"]
     }
 }
