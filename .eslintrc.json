@@ -24,6 +24,7 @@
         "comma-spacing": ["error"],
         "semi-spacing": ["error"],
         "space-infix-ops": ["error"],
-        "indent": ["error"]
+        "indent": ["error"],
+        "no-console": ["off"]
     }
 }
