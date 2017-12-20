@@ -1,4 +1,4 @@
-const jumpProcessorGenerator = require('./jumpProcessorGenerator')
+const { jumpProcessorGenerator, part1Executor } = require('./jumpProcessor')
 const { PUZZLE_INPUT } = require('./puzzle')
 
 describe('jumpProcessor', () => {
@@ -101,34 +101,67 @@ describe('jumpProcessor', () => {
             expect(lastExecuted).toEqual(3)
         })
     })
+})
 
-    describe('toString', () => {
-        it('returns string representation of instructions', () => {
-            // Arrange
-            const jumpProcessor = jumpProcessorGenerator(`1
-                1
-                1`)
-            
-            // Act
-            const instructions = jumpProcessor.next().value.toString()
+describe('part1Executor', () => {
+    it('increments current instruction', () => {
+        // Arrange
+        const currentState = {
+            instructions: [0, 1],
+            offset: 0,
+            executed: 0
+        }
 
-            // Assert
-            expect(instructions).toEqual('(1) 1 1')
-        })
+        // Act
+        const newState = part1Executor(currentState)
 
-        it('indicates current instruction', () => {
-            // Arrange
-            const jumpProcessor = jumpProcessorGenerator(`1
-                1
-                1`)
-            
-            // Act
-            jumpProcessor.next()
-            const instructions = jumpProcessor.next().value.toString()
+        // Assert
+        expect(newState.instructions[0]).toEqual(1)
+    })
 
-            // Assert
-            expect(instructions).toEqual('2 (1) 1')
-        })
+    it('sets new offset', () => {
+        // Arrange
+        const currentState = {
+            instructions: [0, 1],
+            offset: 0,
+            executed: 0
+        }
+
+        // Act
+        const newState = part1Executor(currentState)
+
+        // Assert
+        expect(newState.offset).toEqual(0)
+    })
+
+    it('calculates new offset based on current state', () => {
+        // Arrange
+        const currentState = {
+            instructions: [2, 1, 0],
+            offset: 0,
+            executed: 0
+        }
+
+        // Act
+        const newState = part1Executor(currentState)
+
+        // Assert
+        expect(newState.offset).toEqual(2)
+    })
+
+    it('Increments executed count', () => {
+        // Arrange
+        const currentState = {
+            instructions: [2, 1, 0],
+            offset: 0,
+            executed: 5
+        }
+
+        // Act
+        const newState = part1Executor(currentState)
+
+        // Assert
+        expect(newState.executed).toEqual(6)
     })
 })
 
