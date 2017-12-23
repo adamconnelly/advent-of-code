@@ -52,10 +52,24 @@ describe('memoryAllocationGenerator', () => {
         expect(finalContext.cycles).toEqual(5)
         expect(finalContext.banks).toEqual([2, 4, 1, 2])
     })
+
+    it('returns the number of cycles between duplicates', () => {
+        // Arrange
+        const allocator = memoryAllocationGenerator([0, 2, 7, 0])
+        let finalContext = null
+
+        // Act
+        for (const context of allocator) {
+            finalContext = context
+        }
+
+        // Assert
+        expect(finalContext.cyclesBetweenDuplicates).toEqual(4)
+    })
 })
 
 describe('puzzle', () => {
-    it('can solve puzzle', () => {
+    it('can solve part 1', () => {
         // Arrange
         const input = PUZZLE_INPUT.split('\t').map(bank => parseInt(bank))
         const allocator = memoryAllocationGenerator(input)
@@ -68,5 +82,20 @@ describe('puzzle', () => {
 
         // Assert
         expect(finalContext.cycles).toEqual(7864)
+    })
+
+    it('can solve part 2', () => {
+        // Arrange
+        const input = PUZZLE_INPUT.split('\t').map(bank => parseInt(bank))
+        const allocator = memoryAllocationGenerator(input)
+        let finalContext = null
+
+        // Act
+        for (const context of allocator) {
+            finalContext = context
+        }
+
+        // Assert
+        expect(finalContext.cyclesBetweenDuplicates).toEqual(1695)
     })
 })

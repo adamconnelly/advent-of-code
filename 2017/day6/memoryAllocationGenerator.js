@@ -28,7 +28,7 @@ module.exports = function *(banks) {
         yield context
 
         if (previousStates[currentState]) {
-            context.duplicates = previousStates[currentState]
+            context.cyclesBetweenDuplicates = context.cycles - previousStates[currentState]
             break
         }
 
