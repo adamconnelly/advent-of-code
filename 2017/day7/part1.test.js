@@ -1,7 +1,7 @@
-const sortTowers = require('./towerSorter')
+const buildTower = require('./towerBuilder')
 const { PUZZLE_INPUT } = require('./puzzle')
 
-describe('sortTowers', () => {
+describe('buildTower', () => {
     it('can solve example puzzle', () => {
         // Arrange
         const input = `pbga (66)
@@ -19,13 +19,13 @@ gyxo (61)
 cntj (57)`
 
         // Act
-        const result = sortTowers(input)
+        const result = buildTower(input)
 
         // Assert
         expect(result.bottom).toEqual('tknk')
     })
 
     it('can solve part1', () => {
-        expect(sortTowers(PUZZLE_INPUT).bottom).toEqual('xegshds')
+        expect(buildTower(PUZZLE_INPUT).bottom).toEqual('xegshds')
     })
 })
