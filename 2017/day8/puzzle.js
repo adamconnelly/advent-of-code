@@ -1,3 +1,22 @@
+const Executor = require('./instructionExecutor')
+
+/**
+ * Takes the specified input, splits it into instructions,
+ * and executes the instructions using an instruction executor.
+ * 
+ * @param {String} input The newline separated instructions.
+ * @returns The instruction executor.
+ */
+module.exports.executeInstructions = function(input) {
+    const instructions = input.split('\n')
+        .map(instruction => instruction.trim())
+    const executor = new Executor()
+
+    instructions.forEach(instruction => executor.execute(instruction))
+
+    return executor
+}
+
 module.exports.PUZZLE_INPUT = `sdj dec 558 if r <= 8
 cpv inc 669 if csu >= -6
 ke dec 312 if pep != 0

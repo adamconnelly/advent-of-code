@@ -4,6 +4,7 @@ const Executor = function() {
     const inputPattern = /([a-z]+?) (inc|dec) (-?\d+?) if ([a-z]+?) (.{1,2}) (-?\d+)/
 
     const registers = {}
+    let largestValue
 
     self.execute = function(input) {
         const match = inputPattern.exec(input)
@@ -19,7 +20,7 @@ const Executor = function() {
         const conditionValue = parseInt(match[6])
 
         if (shouldExecute(conditionRegister, conditionOperator, conditionValue)) {
-            executeInstruction(self, register, instruction, registers, value)
+            executeInstruction(register, instruction, registers, value)
         }
     }
 
@@ -40,6 +41,10 @@ const Executor = function() {
             return sortedValues[0]
         
         return 0
+    }
+
+    self.largestEver = function() {
+        return largestValue || 0
     }
 
     function shouldExecute(register, operator, value) {
@@ -70,13 +75,15 @@ const Executor = function() {
         throw `Operator '${operator}' is unknown`
     }
     
-    function executeInstruction(self, register, instruction, registers, value) {
+    function executeInstruction(register, instruction, registers, value) {
         const currentValue = self.get(register)
+        let newValue = currentValue - value
         if (instruction === 'inc') {
-            registers[register] = currentValue + value
-        } else {
-            registers[register] = currentValue - value
+            newValue = currentValue + value
         }
+
+        registers[register] = newValue
+        largestValue = Math.max(newValue, largestValue || newValue)
     }
 }
 

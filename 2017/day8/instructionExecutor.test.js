@@ -295,4 +295,57 @@ describe('instructionExecutor', () => {
             expect(value).toEqual(6)
         })
     })
+
+    describe('largestEver', () => {
+        it('returns 0 before instructions have been executed', () => {
+            // Arrange
+            const executor = new Executor()
+
+            // Act
+            const value = executor.largestEver()
+
+            // Assert
+            expect(value).toEqual(0)
+        })
+
+        it('returns value of single instruction', () => {
+            // Arrange
+            const executor = new Executor()
+            executor.execute('a inc 5 if a == 0')
+
+            // Act
+            const value = executor.largestEver()
+
+            // Assert
+            expect(value).toEqual(5)
+        })
+
+        it('returns largest value from all executions', () => {
+            // Arrange
+            const executor = new Executor()
+            executor.execute('a inc 5 if a == 0')
+            executor.execute('b inc 6 if b == 0')
+            executor.execute('b dec 2 if b != 0')
+
+            // Act
+            const value = executor.largestEver()
+
+            // Assert
+            expect(value).toEqual(6)
+        })
+
+        it('returns largest value when values are negative', () => {
+            // Arrange
+            const executor = new Executor()
+            executor.execute('a dec 5 if a == 0')
+            executor.execute('b dec 6 if b == 0')
+            executor.execute('b inc 2 if b != 0')
+
+            // Act
+            const value = executor.largestEver()
+
+            // Assert
+            expect(value).toEqual(-4)
+        })
+    })
 })
