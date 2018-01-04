@@ -1,4 +1,4 @@
-const calculateScore = require('./scorer')
+const { calculateScore, countGarbage } = require('./scorer')
 
 describe('calculateScore', () => {
     it('returns score for single group', () => {
@@ -11,5 +11,19 @@ describe('calculateScore', () => {
 
     it('sums scores for sub-children', () => {
         expect(calculateScore('{{{}}}')).toEqual(6)
+    })
+})
+
+describe('countGarbage', () => {
+    it('counts garbage in root group', () => {
+        expect(countGarbage('{<abc>}')).toEqual(3)
+    })
+
+    it('counts garbage in child groups', () => {
+        expect(countGarbage('{<a>{<ab>},{<abc>}}')).toEqual(6)
+    })
+
+    it('sums scores for sub-children', () => {
+        expect(countGarbage('{<a>{<ab>{<abc>}}}')).toEqual(6)
     })
 })

@@ -1,5 +1,5 @@
 const { PUZZLE_INPUT } = require('./puzzle')
-const calculateScore = require('./scorer')
+const { calculateScore } = require('./scorer')
 
 describe('part1', () => {
     it('can handle sample input 4', () => {

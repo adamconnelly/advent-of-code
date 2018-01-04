@@ -143,4 +143,26 @@ describe('groupParser', () => {
         // Assert
         expect(output.garbage).toEqual('!>!>!<u,!>!!!!!!!>!!!>,<<!!"')
     })
+
+    it('counts the non-cancelled garbage', () => {
+        // Arrange
+        const input = '{<!>!>!<u,!>!!!!!!!>!!!>,<<!!">}'
+
+        // Act
+        const output = parseGroups(input)
+
+        // Assert
+        expect(output.garbageCount).toEqual(6)
+    })
+
+    it('initialises garbage to empty', () => {
+        // Arrange
+        const input = '{}'
+
+        // Act
+        const output = parseGroups(input)
+
+        // Assert
+        expect(output.garbageCount).toEqual(0)
+    })
 })

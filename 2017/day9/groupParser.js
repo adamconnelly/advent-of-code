@@ -11,17 +11,20 @@ module.exports = (input) => {
     const rootGroup = {
         score: 1,
         children: [],
-        garbage: null
+        garbage: ''
     }
 
     const parseContext = {
         currentPosition: 0,
-        currentDepth: 1
+        currentDepth: 1,
+        garbageCount: 0
     }
 
     while (parseContext.currentPosition < input.length - 1) {
         consumeInput(parseContext, input, rootGroup)
     }
+
+    rootGroup.garbageCount = parseContext.garbageCount
 
     return rootGroup
 }
@@ -30,7 +33,7 @@ function addChild(context, group, input) {
     const child = {
         score: group.score + 1,
         children: [],
-        garbage: null
+        garbage: ''
     }
 
     while (context.currentCharacter !== '}') {
@@ -58,16 +61,19 @@ function moveToNextCharacter(parseContext, input) {
 }
 
 function addGarbage(context, node, input) {
-    const startPosition = context.currentPosition
+    moveToNextCharacter(context, input)
 
+    const startPosition = context.currentPosition
+    
     while (context.currentCharacter !== '>') {
         if (context.currentCharacter === '!') {
             moveToNextCharacter(context, input)
             moveToNextCharacter(context, input)
         } else {
+            context.garbageCount++
             moveToNextCharacter(context, input)
         }
     }
 
-    node.garbage = input.substring(startPosition + 1, context.currentPosition)
+    node.garbage = input.substring(startPosition, context.currentPosition)
 }

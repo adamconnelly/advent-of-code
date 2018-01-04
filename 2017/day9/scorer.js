@@ -1,9 +1,15 @@
 const groupParser = require('./groupParser')
 
-module.exports = (input) => {
+module.exports.calculateScore = function calculateScore(input) {
     const groups = groupParser(input)
 
     return calculateChildScore(groups)
+}
+
+module.exports.countGarbage = function countGarbage(input) {
+    const groups = groupParser(input)
+
+    return groups.garbageCount
 }
 
 function calculateChildScore(groups) {
